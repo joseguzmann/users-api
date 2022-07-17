@@ -1,13 +1,36 @@
 const userRoutes = (app, fs) => {
-    const dataPath = './data/users.json';
+    const dataPath = "./data/users.json";
 
-    app.get('/users', (req, res) => {
-        fs.readFile(dataPath, 'utf8', (err, data) => {
-            if(err) {
+    app.get("/user/:id", (req, res) => {
+        fs.readFile(dataPath, "utf8", (err, data) => {
+            if (err) {
                 throw err;
             }
+            let id = req.params.id;
             let jsonData = JSON.parse(data);
-            res.send(jsonData);
+            for (const key in jsonData) {
+                if (key == id) {
+                    return res.send(jsonData[id]);
+                }
+            }
+            res.status(400).send("<h1>400 - Bad Request</h1>");
+        });
+    });
+
+    app.get("/users", (req, res) => {
+        fs.readFile(dataPath, "utf8", (err, data) => {
+            if (err) {
+                throw err;
+            }
+            let response = [];
+            let position = req.query.position;
+            let jsonData = JSON.parse(data);
+            for (const key in jsonData) {
+                if (position == jsonData[key].position) {
+                    response.push(jsonData[key]);
+                }
+            }
+            res.send(response);
         });
     });
 };
