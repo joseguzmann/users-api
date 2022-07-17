@@ -1,6 +1,7 @@
 const userRoutes = (app, fs) => {
     const dataPath = "./data/users.json";
 
+    // Endpoint that returns data about user whose id matches
     app.get("/user/:id", (req, res) => {
         fs.readFile(dataPath, "utf8", (err, data) => {
             if (err) {
@@ -17,6 +18,7 @@ const userRoutes = (app, fs) => {
         });
     });
 
+    // Endpoint that returns data about users whose position matches
     app.get("/users", (req, res) => {
         fs.readFile(dataPath, "utf8", (err, data) => {
             if (err) {
