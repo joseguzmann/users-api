@@ -24,7 +24,7 @@ npm start
 
 ## Project's structure
 
-The project have the following endpoints
+The project has the following endpoints
 
 **GET /**<br>
 Default presentation endpoint
